@@ -1,6 +1,12 @@
 require 'support/url_context'
 require 'shoes-factory/client'
 
+shared_examples "downloads" do
+  it "is an array of ShoesFactory::Download" do
+    subject.first.should be_an_instance_of(ShoesFactory::Download)
+  end
+end
+
 describe ShoesFactory::API do
   include_context "url"
   let(:client) { ShoesFactory::Client.new(url) }
@@ -8,8 +14,18 @@ describe ShoesFactory::API do
   describe "#wrapper_downloads" do
     subject { client.wrapper_downloads }
 
-    it "is an array of ShoesFactory::Download" do
-      subject.first.should be_an_instance_of(ShoesFactory::Download)
-    end
+    it_behaves_like "downloads"
+  end
+
+  describe "#jruby_downloads" do
+    subject { client.jruby_downloads }
+
+    it_behaves_like "downloads"
+  end
+
+  describe "#all_downloads" do
+    subject { client.all_downloads }
+
+    it_behaves_like "downloads"
   end
 end

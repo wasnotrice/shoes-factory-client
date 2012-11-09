@@ -27,6 +27,10 @@ module ShoesFactory
       root.at("a[@rel='downloads']")['href']
     end
 
+    def downloads
+      get(downloads_url)
+    end
+
     def package_url
       root.at("a[@rel='package']")['href']
     end

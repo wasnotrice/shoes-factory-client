@@ -1,10 +1,12 @@
 module ShoesFactory
   class Download
     def self.parse(html)
-      url = html.at("a[@rel='download']")['href']
-      name = parse_text(html.at(".name"))
-      description = parse_text(html.at(".description"))
-      new(name, url, description)
+      Array(html).map do |h|
+        url = h.at("a[@rel='download']")['href']
+        name = parse_text(h.at(".name"))
+        description = parse_text(h.at(".description"))
+        new(name, url, description)
+      end
     end
 
     def self.parse_text(html)

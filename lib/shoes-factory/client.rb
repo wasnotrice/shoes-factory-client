@@ -1,4 +1,5 @@
 require 'mechanize'
+require 'shoes-factory/download'
 
 module ShoesFactory
   class Client
@@ -28,6 +29,12 @@ module ShoesFactory
 
     def jruby_downloads
       downloads.at(".jruby.downloads")
+    end
+
+    def wrapper_downloads
+      downloads.at(".application-wrappers").search(".download").map do |download|
+        Download.parse(download)
+      end
     end
 
     def package_url

@@ -1,9 +1,13 @@
 require 'mechanize'
+require 'shoes-factory/api'
 require 'shoes-factory/download'
 
 module ShoesFactory
   class Client
+    include API
+
     DEFAULT_ROOT_URL = "http://example.com"
+
     def initialize(root_url = DEFAULT_ROOT_URL)
       @root_url = root_url
       @agent = Mechanize.new
@@ -21,20 +25,6 @@ module ShoesFactory
 
     def downloads_url
       root.at("a[@rel='downloads']")['href']
-    end
-
-    def downloads
-      get(downloads_url)
-    end
-
-    def jruby_downloads
-      downloads.at(".jruby.downloads")
-    end
-
-    def wrapper_downloads
-      downloads.at(".application-wrappers").search(".download").map do |download|
-        Download.parse(download)
-      end
     end
 
     def package_url

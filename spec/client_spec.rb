@@ -1,14 +1,10 @@
+require 'support/url_context'
 require 'shoes-factory/client'
 
 shared_examples "page" do
   it "is a page" do
     subject.should be_an_instance_of(Mechanize::Page)
   end
-end
-
-shared_context "url" do
-  let(:html_path) { File.expand_path "../html", __FILE__ }
-  let(:url) { "file://#{html_path}/index.html" }
 end
 
 describe ShoesFactory::Client do

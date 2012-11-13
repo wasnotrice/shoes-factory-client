@@ -1,4 +1,4 @@
-require 'support/url_context'
+require 'spec_helper'
 require 'shoes-factory/client'
 
 shared_examples "downloads" do
@@ -8,8 +8,7 @@ shared_examples "downloads" do
 end
 
 describe ShoesFactory::API do
-  include_context "url"
-  let(:client) { ShoesFactory::Client.new(url) }
+  let(:client) { ShoesFactory::Client.new(@url) }
 
   describe "#wrapper_downloads" do
     subject { client.wrapper_downloads }
